@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images" 
+public_folder: "images"
+
+collections:
+  - name: "store_content"
+    label: "Store Content"
+    files:
+      - label: "Prices and Products"
+        name: "product_data"
+        file: "data.json"
+        fields:
+          - {label: "Radiance Lotion Price", name: "price_1", widget: "string"}
+          - {label: "Vitamin C Serum Price", name: "price_2", widget: "string"}
+          - {label: "Update Main Banner Image", name: "hero_image", widget: "image"}
