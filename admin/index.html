@@ -1,18 +1,14 @@
-backend:
-  name: git-gateway
-  branch: main
-
-media_folder: "images" 
-public_folder: "images"
-
-collections:
-  - name: "store_content"
-    label: "Store Content"
-    files:
-      - label: "Prices and Products"
-        name: "product_data"
-        file: "data.json"
-        fields:
-          - {label: "Radiance Lotion Price", name: "price_1", widget: "string"}
-          - {label: "Vitamin C Serum Price", name: "price_2", widget: "string"}
-          - {label: "Update Main Banner Image", name: "hero_image", widget: "image"}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orisca Admin Dashboard</title>
+    <!-- Enables the secure login system -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <!-- Loads the CMS visual dashboard -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </body>
+</html>
