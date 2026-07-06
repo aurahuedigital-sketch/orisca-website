@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura & Hue | Beauty & Cosmetics</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & BASE STYLES
+           ========================================================================== */
+        :root {
+            /* Color Palette */
+            --clr-wine: #4A0E2E;        /* Deep Berry/Wine */
+            --clr-wine-light: #5f143c;
+            --clr-gold: #C5A059;        /* Premium Gold */
+            --clr-gold-hover: #b08d4b;
+            --clr-bg-light: #FCF9FA;    /* Soft Blush Off-White */
+            --clr-text-dark: #2C2C2C;   /* Charcoal Body Text */
+            --clr-text-muted: #666666;
+            --clr-white: #FFFFFF;
+            
+            /* Typography */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Spacing & Borders */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; font-size: 16px; }
+        
+        body {
+            font-family: var(--font-body);
+            color: var(--clr-text-dark);
+            background-color: var(--clr-bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--clr-wine);
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* Accessibility Focus State */
+        *:focus-visible {
+            outline: 3px solid var(--clr-gold);
+            outline-offset: 2px;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Brand Signature Strip */
+        .brand-signature {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--clr-wine) 0%, var(--clr-wine) 33%, var(--clr-gold) 33%, var(--clr-gold) 66%, var(--clr-text-dark) 66%, var(--clr-text-dark) 100%);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background-color: var(--clr-gold);
+            color: var(--clr-white);
+        }
+        .btn-primary:hover { background-color: var(--clr-gold-hover); }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--clr-wine);
+            border: 1px solid var(--clr-wine);
+        }
+        .btn-secondary:hover {
+            background-color: var(--clr-wine);
+            color: var(--clr-white);
+        }
+
+        /* ==========================================================================
+           SECTIONS
+           ========================================================================== */
+
+        /* 1. Navigation */
+        .navbar {
+            background-color: var(--clr-white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--clr-wine);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a { font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--clr-gold); }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--clr-wine);
+            cursor: pointer;
+        }
+
+        /* 2. Hero Section */
+        .hero {
+            background-color: var(--clr-wine);
+            color: var(--clr-white);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 { color: var(--clr-white); font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem; font-weight: 300; opacity: 0.9; }
+        
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .hero .btn-secondary { color: var(--clr-white); border-color: var(--clr-white); }
+        .hero .btn-secondary:hover { background-color: var(--clr-white); color: var(--clr-wine); }
+
+        /* Section Global Styles */
+        .section-padding { padding: 5rem 0; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--clr-text-muted); }
+
+        /* 3. Shop Section */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--clr-white);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: var(--transition);
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        
+        .product-img {
+            width: 100%;
+            height: 250px;
+            background-color: #eee;
+            object-fit: cover;
+        }
+
+        .product-content { padding: 1.5rem; text-align: center; }
+        .category-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr-gold);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .product-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .product-price { font-weight: 600; color: var(--clr-wine); margin-bottom: 1.5rem; }
+        .product-card .btn { width: 100%; }
+
+        /* 4. Services Section */
+        .services { background-color: var(--clr-white); }
+        .services-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border: 1px solid #eaeaea;
+            border-radius: var(--radius-sm);
+        }
+
+        .service-info h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+        .service-info p { color: var(--clr-text-muted); font-size: 0.9rem; margin-bottom: 0; }
+        .service-price { text-align: right; }
+        .service-price .price { font-size: 1.25rem; font-weight: 600; color: var(--clr-wine); display: block; margin-bottom: 0.5rem; }
+
+        /* 5. Testimonials Section */
+        .testimonials { background-color: var(--clr-bg-light); }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--clr-white);
+            padding: 2rem;
+            border-radius: var(--radius-sm);
+            border-top: 4px solid var(--clr-gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .quote-mark { font-family: var(--font-heading); font-size: 3rem; color: var(--clr-wine-light); line-height: 1; margin-bottom: -1rem; opacity: 0.5; }
+        .testimonial-text { font-style: italic; margin-bottom: 1.5rem; color: var(--clr-text-dark); }
+        .testimonial-author { font-weight: 600; font-family: var(--font-heading); color: var(--clr-wine); }
+
+        /* 6. Contact Section */
+        .contact { background-color: var(--clr-white); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 { font-size: 1.75rem; margin-bottom: 1.5rem; }
+        .info-item { margin-bottom: 1.5rem; }
+        .info-item h4 { font-size: 1rem; color: var(--clr-gold); margin-bottom: 0.25rem; }
+        
+        .contact-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn-whatsapp { background-color: #25D366; color: white; border: none; }
+        .btn-whatsapp:hover { background-color: #128C7E; }
+        .btn-call { background-color: var(--clr-text-dark); color: white; border: none; }
+        .btn-call:hover { background-color: #000; }
+
+        /* Form styling */
+        .contact-form {
+            background-color: var(--clr-bg-light);
+            padding: 2.5rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500; }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ccc;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background-color: var(--clr-white);
+        }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+        .contact-form .btn { width: 100%; margin-top: 1rem; }
+
+        /* 7. Footer */
+        .footer {
+            background-color: var(--clr-wine);
+            color: var(--clr-white);
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-brand { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: var(--clr-gold); }
+        .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { color: var(--clr-white); opacity: 0.8; }
+        .footer-links a:hover { opacity: 1; color: var(--clr-gold); }
+        .template-note { font-size: 0.8rem; opacity: 0.5; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero-actions { flex-direction: column; }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--clr-white);
+                flex-direction: column;
+                padding: 1.5rem 0;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            
+            .service-item { flex-direction: column; text-align: left; align-items: flex-start; gap: 1rem; }
+            .service-price { text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center; }
+            .service-price .price { margin-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brand-signature"></div>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Aura & Hue</a>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#shop">Shop Products</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+                <a href="#contact" class="btn btn-primary" style="margin-left: 1rem;">Order / Book Now</a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
+                ☰
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Elevate Your Natural Radiance</h1>
+            <p>Premium skincare, flawless makeup artistry, and beauty services designed to celebrate your unique glow.</p>
+            <div class="hero-actions">
+                <a href="#shop" class="btn btn-primary">Shop Products</a>
+                <a href="#services" class="btn btn-secondary">Book a Session</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="shop" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Collection</h2>
+                <p>Curated cosmetics and skincare for daily luxury.</p>
+            </div>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://placehold.co/400x400/F5F5F5/2C2C2C?text=Serum\nBottle" alt="Product Image" class="product-img">
+                    <div class="product-content">
+                        <span class="category-label">Skincare</span>
+                        <h3 class="product-title">Radiance Vitamin C Serum</h3>
+                        <p class="product-price">₦18,500</p>
+                        <a href="https://wa.me/2348000000000?text=I%20want%20to%20order%20the%20Radiance%20Vitamin%20C%20Serum" target="_blank" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://placehold.co/400x400/F5F5F5/2C2C2C?text=Matte\nLipstick" alt="Product Image" class="product-img">
+                    <div class="product-content">
+                        <span class="category-label">Makeup</span>
+                        <h3 class="product-title">Velvet Matte Lip Rouge</h3>
+                        <p class="product-price">₦9,000</p>
+                        <a href="https://wa.me/2348000000000?text=I%20want%20to%20order%20the%20Velvet%20Matte%20Lip%20Rouge" target="_blank" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://placehold.co/400x400/F5F5F5/2C2C2C?text=Glow\nOil" alt="Product Image" class="product-img">
+                    <div class="product-content">
+                        <span class="category-label">Body Care</span>
+                        <h3 class="product-title">Luminous Body Glow Oil</h3>
+                        <p class="product-price">₦15,000</p>
+                        <a href="https://wa.me/2348000000000?text=I%20want%20to%20order%20the%20Luminous%20Body%20Glow%20Oil" target="_blank" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://placehold.co/400x400/F5F5F5/2C2C2C?text=Eye\nPalette" alt="Product Image" class="product-img">
+                    <div class="product-content">
+                        <span class="category-label">Makeup</span>
+                        <h3 class="product-title">Dusk to Dawn Palette</h3>
+                        <p class="product-price">₦22,000</p>
+                        <a href="https://wa.me/2348000000000?text=I%20want%20to%20order%20the%20Dusk%20to%20Dawn%20Palette" target="_blank" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Beauty Services</h2>
+                <p>Professional makeup artistry and spa treatments.</p>
+            </div>
+
+            <div class="services-list">
+                <div class="service-item">
+                    <div class="service-info">
+                        <h3>Signature Glam Makeup</h3>
+                        <p>Full face makeup application including lashes. Perfect for events and photoshoots.</p>
+                    </div>
+                    <div class="service-price">
+                        <span class="price">₦35,000</span>
+                        <a href="#contact" class="btn btn-secondary">Book</a>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-info">
+                        <h3>Luxury Bridal Package</h3>
+                        <p>Complete bridal makeup, pre-wedding consultation, and touch-up kit included.</p>
+                    </div>
+                    <div class="service-price">
+                        <span class="price">₦150,000</span>
+                        <a href="#contact" class="btn btn-secondary">Book</a>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-info">
+                        <h3>Rejuvenating Facial Spa</h3>
+                        <p>60-minute deep cleansing, exfoliation, and hydration treatment at our studio.</p>
+                    </div>
+                    <div class="service-price">
+                        <span class="price">₦25,000</span>
+                        <a href="#contact" class="btn btn-secondary">Book</a>
+                    </div>
+                </div>
+
+                 <div class="service-item">
+                    <div class="service-info">
+                        <h3>Home Visit / Concierge</h3>
+                        <p>Premium beauty services brought directly to your home or hotel. (Fee excludes base service cost).</p>
+                    </div>
+                    <div class="service-price">
+                        <span class="price">₦10,000</span>
+                        <a href="#contact" class="btn btn-secondary">Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Client Love</h2>
+                <p>What our beautiful clients are saying about us.</p>
+            </div>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="quote-mark">“</div>
+                    <p class="testimonial-text">Absolutely in love with the Vitamin C serum. My skin has never looked so clear and radiant. Also, the customer service was phenomenal.</p>
+                    <p class="testimonial-author">— Teniola A.</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote-mark">“</div>
+                    <p class="testimonial-text">They did my bridal makeup and I felt like absolute royalty. The makeup lasted all day through tears and dancing without smudging once!</p>
+                    <p class="testimonial-author">— Blessing O.</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="quote-mark">“</div>
+                    <p class="testimonial-text">The body glow oil is my holy grail product now. I smell amazing and look incredibly hydrated. Highly recommend Aura & Hue!</p>
+                    <p class="testimonial-author">— Sarah M.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section-padding">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <div>
+                    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                        <h2>Get In Touch</h2>
+                        <p>Ready to order, book a session, or just have a question? Reach out to us directly.</p>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <h4>Studio Address</h4>
+                            <p>[Fake Address] 123 Beauty Boulevard,<br>Victoria Island, Lagos</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Saturday: 9:00 AM - 6:00 PM<br>Sunday: Closed</p>
+                        </div>
+                        <div class="info-item">
+                            <h4>Email Us</h4>
+                            <p>hello@aurahuefakebrand.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-actions">
+                        <a href="https://wa.me/2348000000000" target="_blank" class="btn btn-whatsapp">WhatsApp Us</a>
+                        <a href="tel:+2348000000000" class="btn btn-call">Call Direct</a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1.5rem;">Send an Inquiry</h3>
+                    <form id="inquiryForm" onsubmit="event.preventDefault(); alert('Form submitted! (This is a placeholder alert for the template)');">
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Jane Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone / WhatsApp Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="080..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="inquiryType">What can we help you with?</label>
+                            <select id="inquiryType" class="form-control" required>
+                                <option value="">Select an option...</option>
+                                <option value="product_order">Product Order</option>
+                                <option value="service_booking">Service Booking</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="message">Message / Details</label>
+                            <textarea id="message" class="form-control" placeholder="Which products or services are you interested in?" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="brand-signature"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <h2 class="footer-brand">Aura & Hue</h2>
+            
+            <div class="footer-links">
+                <a href="#shop">Shop</a>
+                <a href="#services">Services</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <p style="opacity: 0.8; font-size: 0.9rem;">&copy; 2026 Aura & Hue Beauty. All Rights Reserved.</p>
+            
+            <div class="template-note">
+                <p>Reusable Cosmetics & Beauty Business Template | Designed for Conversion & Online Bookings</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+
+            mobileBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
